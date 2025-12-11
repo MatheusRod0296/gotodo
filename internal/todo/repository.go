@@ -14,6 +14,15 @@ func NewRepository() *Repository {
 	}
 }
 
+func (r *Repository) GetByID(id int) (Todo, error) {
+	for _, t := range r.data {
+		if t.ID == id {
+			return t, nil
+		}
+	}
+	return Todo{}, errors.New("todo não encontrado")
+}
+
 func (r *Repository) GetAll() []Todo {
 	return r.data
 }

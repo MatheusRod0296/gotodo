@@ -17,6 +17,10 @@ func (s *Service) List() []Todo {
 	return s.repo.GetAll()
 }
 
+func (s *Service) GetById(id int) (Todo, error) {
+	return s.repo.GetByID(id)
+}
+
 func (s *Service) Create(title string) (Todo, error) {
 	if title == "" {
 		return Todo{}, errors.New("title é obrigatório")

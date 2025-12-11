@@ -14,6 +14,7 @@ func main() {
 	todoHandler := todo.NewHandler(service)
 
 	r.GET("/todos", todoHandler.List)
+	r.GET("/todos/:id", todoHandler.GetById)
 	r.POST("/todos", todoHandler.Create)
 	r.PUT("/todos/:id", todoHandler.Update)
 	r.DELETE("/todos/:id", todoHandler.Delete)

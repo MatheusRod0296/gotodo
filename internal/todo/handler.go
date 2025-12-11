@@ -2,6 +2,7 @@ package todo
 
 import (
 	"net/http"
+	"strconv"
 
 	"github.com/gin-gonic/gin"
 )
@@ -19,6 +20,18 @@ func NewHandler(service *Service) *Handler {
 // GET /todos
 func (h *Handler) List(c *gin.Context) {
 	todos := h.service.List()
+	c.JSON(http.StatusOK, todos)
+}
+
+func (h *Handler) GetById(c *gin.Context) {
+	var idStr = c.Params.ByName("id")
+	n, _ := strconv.Atoi(idStr)
+
+	todos, error := h.service.GetById(n)
+	if error != nil {
+		c.JSON(http.StatusNotFound, gin.H{"error": error.Error()})
+	}
+
 	c.JSON(http.StatusOK, todos)
 }
 
